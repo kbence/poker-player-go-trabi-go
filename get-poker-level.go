@@ -1,7 +1,7 @@
 package main
 
 
-func GetPokerLevel(cards []Card) (int) {
+func GetPokerLevel(cards []Card) (int, int) {
 	pokerTypes := make(map[string]int)
 	pokerCards := make(map[string]int)
 	level := 1
@@ -13,6 +13,9 @@ func GetPokerLevel(cards []Card) (int) {
 			pokerTypes["pairs"]++
 		}
 		pokerCards[c.Rank]++
+		if(len(cards) == 1) {
+			return 1, c.Position()
+		}
 	}
 	if(pokerTypes["pairs"] == 1) {
 		level = 2
@@ -24,5 +27,6 @@ func GetPokerLevel(cards []Card) (int) {
 		level = 4
 	}
 
-	return level
+
+	return level, 1
 }
