@@ -136,5 +136,5 @@ func TestRoyalFlush(t *testing.T) {
 	}
 	level, cardLevel := GetPokerLevel(cards)
 	assert.Equal(t, 10, level, "royal flush")
-	assert.Equal(t, 1, cardLevel, "royal flush card level")
+	assert.Equal(t, 10, cardLevel, "royal flush card level")
 }
