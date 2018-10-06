@@ -3,16 +3,18 @@ package main
 func findStraight(cards []Card) int {
 	for i := 1; i < 10; i++ {
 		if findByPos(cards, i) && findByPos(cards, i+1) && findByPos(cards, i+2) && findByPos(cards, i+3) && findByPos(cards, i+4) {
-			return i;
+			return i
 		}
 	}
 
-	return -1;
+	return -1
 }
 
 func findByPos(cards []Card, position int) bool {
 	for _, card := range cards {
-		if(card.Position()==position || (card.Position()==14 && position==1)) return true
+		if card.Position() == position || (card.Position() == 14 && position == 1) {
+			return true
+		}
 	}
 
 	return false
