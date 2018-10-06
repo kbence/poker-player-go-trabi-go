@@ -21,10 +21,11 @@ func (p *PokerPlayer) BetRequest(state *Game) int {
 		return 0
 	}
 
-	value := (Hole)(state.Players[state.InAction].HoleCards).Value()
+	player := state.Players[state.InAction]
+	value := (Hole)(player.HoleCards).Value()
 
 	if value > 5.0 {
-		return state.CurrentBuyIn
+		return state.CurrentBuyIn - player.Bet
 	}
 
 	return 0
