@@ -12,7 +12,9 @@ import (
 const URL = "http://geci.herokuapp.com/gotrabigokiakiraly/trabi_v1.json"
 
 type Config struct {
-	Curves struct {
+	Version  string
+	NewLogic bool
+	Curves   struct {
 		StackCurve float64
 		RaiseCurve float64
 	}
@@ -24,7 +26,13 @@ type Config struct {
 }
 
 func NewConfig() *Config {
-	config := &Config{}
+	config := &Config{
+		Version:  "Default inline version",
+		NewLogic: false,
+	}
+	config.ConfidenceLevels.AllIn = 0.9
+	config.ConfidenceLevels.Raise = 0.8
+	config.ConfidenceLevels.Call = 0.5
 
 	go config.Update()
 

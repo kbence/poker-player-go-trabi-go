@@ -12,14 +12,8 @@ func NewPokerPlayer() *PokerPlayer {
 	return &PokerPlayer{}
 }
 
-// BetRequest handles the main betting logic. The return value of this
-// function will be used to decide whether the player want to fold,
-// call, raise or do an all-in; more information about this behaviour
-// can be found here: http://leanpoker.org/player-api
-func (p *PokerPlayer) BetRequest(state *Game) int {
+func oldLogic(state *Game) int {
 	value := (Hole)(state.Player().HoleCards).Value()
-
-	NewFuzzyDecider(Cfg, state).Next()
 
 	// AA or higher, omg all in
 	if value >= 20.0 {
@@ -43,6 +37,34 @@ func (p *PokerPlayer) BetRequest(state *Game) int {
 
 	// no way
 	return 0
+}
+
+func newLogic(state *Game) int {
+	decision := NewFuzzyDecider(Cfg, state).Next()
+
+	switch decision {
+	case ALL_IN:
+		return state.Player().Stack
+	case RAISE:
+		return state.MinimumRaiseValue()
+	case CALL:
+		return state.CallValue()
+	}
+
+	return 0
+}
+
+// BetRequest handles the main betting logic. The return value of this
+// function will be used to decide whether the player want to fold,
+// call, raise or do an all-in; more information about this behaviour
+// can be found here: http://leanpoker.org/player-api
+func (p *PokerPlayer) BetRequest(state *Game) int {
+
+	if Cfg.NewLogic {
+		return newLogic(state)
+	} else {
+		return oldLogic(state)
+	}
 }
 
 // Showdown is called at the end of every round making it possible to

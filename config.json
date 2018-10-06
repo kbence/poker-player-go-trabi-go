@@ -1,4 +1,6 @@
 {
+    "Version": "Szuper verzio",
+    "NewLogic": true,
     "Curves": {
         "StackCurve": 0.0,
         "RaiseCurve": 0.0
