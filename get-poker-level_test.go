@@ -93,7 +93,7 @@ func TestFlush(t *testing.T) {
 		Card{Rank: "3", Suit: "clubs"},
 		Card{Rank: "4", Suit: "clubs"},
 		Card{Rank: "5", Suit: "clubs"},
-		Card{Rank: "6", Suit: "clubs"},
+		Card{Rank: "7", Suit: "clubs"},
 	}
 	level, cardLevel := GetPokerLevel(cards)
 	assert.Equal(t, 6, level, "flush")
