@@ -100,6 +100,19 @@ func TestFlush(t *testing.T) {
 	assert.Equal(t, 1, cardLevel, "flush card level")
 }
 
+func TestStraightFlush(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "2", Suit: "clubs"},
+		Card{Rank: "3", Suit: "clubs"},
+		Card{Rank: "4", Suit: "clubs"},
+		Card{Rank: "5", Suit: "clubs"},
+		Card{Rank: "6", Suit: "clubs"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 9, level, "straight flush")
+	assert.Equal(t, 2, cardLevel, "flush card level")
+}
+
 func TestPoker(t *testing.T) {
 	cards := []Card{
 		Card{Rank: "3", Suit: "clubs"},
