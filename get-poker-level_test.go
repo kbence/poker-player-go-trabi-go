@@ -6,6 +6,16 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestHighCard(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "K", Suit: "clubs"},
+		Card{Rank: "3", Suit: "spades"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 1, level, "high card")
+	assert.Equal(t, 13, cardLevel, "high card level")
+}
+
 func TestCouple(t *testing.T) {
 	cards := []Card{
 		Card{Rank: "2", Suit: "clubs"},

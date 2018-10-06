@@ -5,6 +5,7 @@ func GetPokerLevel(cards []Card) (int, int) {
 	pokerTypes := make(map[string]int)
 	pokerCards := make(map[string]int)
 	pokerColors := make(map[string]int)
+	cardPosition := 0
 	level := 1
 	for _, c := range cards {
 		if(pokerCards[c.Rank] == 2 && pokerTypes["drill"] == 0) {
@@ -21,8 +22,8 @@ func GetPokerLevel(cards []Card) (int, int) {
 		if(pokerCards[c.Rank] == 4) {
 			return 8, 1
 		}
-		if(len(cards) == 1) {
-			return 1, c.Position()
+		if(cardPosition < c.Position()) {
+			cardPosition = c.Position()
 		}
 	}
 	if(pokerTypes["pairs"] == 1) {
@@ -36,6 +37,9 @@ func GetPokerLevel(cards []Card) (int, int) {
 	}
 	if(pokerTypes["flush"] != 0) {
 		level = 6
+	}
+	if(level == 1) {
+		return 1, cardPosition
 	}
 
 
