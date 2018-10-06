@@ -21,7 +21,12 @@ func (p *PokerPlayer) BetRequest(state *Game) int {
 
 	NewFuzzyDecider().Next(state)
 
-	// KK AA or higher, be brave
+	// AA or higher, omg all in
+	if value >= 20.0 {
+		return state.MinimumRaiseValue() * 300
+	}
+
+	// KK be brave
 	if value >= 16.0 {
 		return state.MinimumRaiseValue() * 2
 	}
