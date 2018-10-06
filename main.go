@@ -76,5 +76,5 @@ func (p *PokerPlayer) Showdown(state *Game) {
 // Version returns the version string that will be shown on the UI at
 // live.leanpoker.org
 func (p *PokerPlayer) Version() string {
-	return VERSION
+	return Cfg.Version
 }
