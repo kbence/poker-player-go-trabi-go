@@ -58,7 +58,8 @@ func (h Hole) Value() float64 {
 	a, b := h[0], h[1]
 	value := math.Max(a.Value(), b.Value())
 	if(a.Value()== b.Value()) {value*=2}
-	if(a.Suit==b.Suit){value+=2}
+	inSuit := a.Suit == b.Suit
+	if inSuit {value+=2}
 	g:=a.gap(b)
 
 	switch g {
@@ -73,6 +74,8 @@ func (h Hole) Value() float64 {
 	if (a.Position()<12 && b.Position()<12 && g<=1) {value+=1}
 
 	rounded := math.Round(value)
-	log.Printf("%s %s %s %s => %v", a.Rank ,a.Suit, b.Rank, a.Suit, rounded)
+	log.Printf("%s %s %s %s [v1=%v v2=%v g=%v %v] => %v", a.Rank ,a.Suit, b.Rank, a.Suit,
+		a.Value(), b.Value(), g, inSuit,
+		rounded)
 	return rounded
 }
