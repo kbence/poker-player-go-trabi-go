@@ -17,6 +17,7 @@ type Config struct {
 	Curves   struct {
 		StackCurve float64
 		RaiseCurve float64
+		HandCurve  float64
 	}
 	ConfidenceLevels struct {
 		AllIn float64
@@ -73,10 +74,13 @@ func (cfg *Config) Update() {
 
 func (cfg *Config) String() string {
 	return fmt.Sprintf("Curves={StackCurve=%f, RaiseCurve=%f}, "+
-		"ConfidenceLevels={AllIn=%f, Raise=%f, Call=%f}",
+		"ConfidenceLevels={AllIn=%f, Raise=%f, Call=%f}"+
+		"NewLogic=%b, Version=%s",
 		cfg.Curves.StackCurve,
 		cfg.Curves.RaiseCurve,
 		cfg.ConfidenceLevels.AllIn,
 		cfg.ConfidenceLevels.Raise,
-		cfg.ConfidenceLevels.Call)
+		cfg.ConfidenceLevels.Call,
+		cfg.NewLogic,
+		cfg.Version)
 }

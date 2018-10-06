@@ -3,7 +3,8 @@
     "NewLogic": true,
     "Curves": {
         "StackCurve": 0.0,
-        "RaiseCurve": 0.0
+        "RaiseCurve": 0.0,
+        "HandCurve": 0.0
     },
     "ConfidenceLevels": {
         "AllIn": 0.9,
