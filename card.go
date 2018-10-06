@@ -36,5 +36,6 @@ func (h Hole) Value() float64 {
 	a, b := h[0], h[1]
 	value := math.Max(a.Value(), b.Value())
 	if(a.Value()== b.Value()) {value*=2}
+	if(a.Suit==b.Suit){value+=2}
 	return value
 }
