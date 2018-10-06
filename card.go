@@ -69,5 +69,7 @@ func (h Hole) Value() float64 {
 		value-=5
 	}
 
-	return value
+	if (a.Position()<12 && b.Position()<12 && g<=1) {value+=1}
+
+	return math.Round(value)
 }
