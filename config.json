@@ -1,9 +1,9 @@
 {
-    "Version": "DLCFG v0.1 - 423/753",
+    "Version": "DLCFG v0.1 - 453/753",
     "NewLogic": true,
     "Curves": {
         "StackCurve": 0.4,
-        "RaiseCurve": 0.2,
+        "RaiseCurve": 0.5,
         "HandCurve": 0.3
     },
     "ConfidenceLevels": {

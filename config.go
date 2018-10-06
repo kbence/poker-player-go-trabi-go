@@ -75,7 +75,7 @@ func (cfg *Config) Update() {
 func (cfg *Config) String() string {
 	return fmt.Sprintf("Curves={StackCurve=%f, RaiseCurve=%f}, "+
 		"ConfidenceLevels={AllIn=%f, Raise=%f, Call=%f}"+
-		"NewLogic=%b, Version=%s",
+		"NewLogic=%t, Version=%s",
 		cfg.Curves.StackCurve,
 		cfg.Curves.RaiseCurve,
 		cfg.ConfidenceLevels.AllIn,
