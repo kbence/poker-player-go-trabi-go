@@ -30,6 +30,22 @@ func (c Card) Value() float64 {
 	}
 }
 
+func (c Card) Position() int {
+	switch c.Rank {
+	case "A":
+		return 14
+	case "K":
+		return 13
+	case "Q":
+		return 12
+	case "J":
+		return 11
+	default:
+		x, _ := strconv.Atoi(c.Rank)
+		return x
+	}
+}
+
 type Hole []Card
 
 func (h Hole) Value() float64 {
