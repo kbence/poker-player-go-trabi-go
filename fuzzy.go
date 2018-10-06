@@ -1,18 +1,9 @@
 package main
 
-import "log"
-
 var Cfg *Config = nil
 
 func init() {
 	Cfg = NewConfig()
-}
-
-type FuzzyDecider struct {
-	config     *Config
-	game       *Game
-	raiseCurve func(float64) float64
-	stackCurve func(float64) float64
 }
 
 var stackScale = FloatScale{}.Domain(0.0, 3000.0).Range(1.0, 0.0)
@@ -43,10 +34,19 @@ func ValueOfCards(cards []Card) float64 {
 	return (float64)(handLevel) + (float64)(cardLevel)/15.0
 }
 
+type FuzzyDecider struct {
+	config     *Config
+	game       *Game
+	raiseCurve func(float64) float64
+	stackCurve func(float64) float64
+	log        *Logger
+}
+
 func NewFuzzyDecider(config *Config, game *Game) *FuzzyDecider {
 	decider := &FuzzyDecider{config: config, game: game}
 	decider.stackCurve = Curve(config.Curves.StackCurve)
 	decider.raiseCurve = Curve(config.Curves.RaiseCurve)
+	decider.log = NewLogger(game.GameID)
 
 	return decider
 }
@@ -57,18 +57,18 @@ func (d *FuzzyDecider) Next() Decision {
 	handValue := ValueOfCards(d.game.EffectiveCards()) - ValueOfCards(d.game.CommunityCards)
 	confidence := stackValue * raiseValue * handValue
 
-	log.Printf("stackValue=%f, raiseValue=%f, handValue=%f -> confidence=%f\n",
+	d.log.Debugf("stackValue=%f, raiseValue=%f, handValue=%f -> confidence=%f\n",
 		stackValue, raiseValue, handValue, confidence)
 
 	switch {
 	case confidence > d.config.ConfidenceLevels.AllIn:
-		log.Printf("all in with confidence %f", confidence)
+		d.log.Debugf("all in with confidence %f", confidence)
 		return ALL_IN
 	case confidence > d.config.ConfidenceLevels.Raise:
-		log.Printf("raise with confidence %f", confidence)
+		d.log.Debugf("raise with confidence %f", confidence)
 		return RAISE
 	case confidence > d.config.ConfidenceLevels.Call:
-		log.Printf("call with confidence %f", confidence)
+		d.log.Debugf("call with confidence %f", confidence)
 		return CALL
 	}
 	return FOLD

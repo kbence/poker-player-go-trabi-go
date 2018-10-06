@@ -33,6 +33,9 @@ type Game struct {
 
 	// Finally the array of community cards.
 	CommunityCards []Card `json:"community_cards"`
+
+	//Game ID
+	GameID string `json:"game_id"`
 }
 
 func (g *Game) Player() Player {
