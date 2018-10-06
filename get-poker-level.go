@@ -61,12 +61,12 @@ func GetPokerLevel(cards []Card) (int, int) {
 	if(pokerTypes["flush"] != 0) {
 		level = 6
 	}
-	if(level == 1) {
-		return 1, cardPosition
-	}
 	straight := findStraight(cards)
 	if straight > 0 {
 		return 5, straight
+	}
+	if level == 1 {
+		return 1, cardPosition
 	}
 
 	return level, 1
