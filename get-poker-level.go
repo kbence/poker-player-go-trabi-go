@@ -20,7 +20,6 @@ func findByPos(cards []Card, position int) bool {
 	return false
 }
 
-
 func GetPokerLevel(cards []Card) (int, int) {
 	pokerTypes := make(map[string]int)
 	pokerCards := make(map[string]int)
@@ -28,37 +27,37 @@ func GetPokerLevel(cards []Card) (int, int) {
 	cardPosition := 0
 	level := 1
 	for _, c := range cards {
-		if(pokerCards[c.Rank] == 2 && pokerTypes["drill"] == 0) {
+		if pokerCards[c.Rank] == 2 && pokerTypes["drill"] == 0 {
 			pokerTypes["drill"]++
 		}
-		if(pokerCards[c.Rank] == 1) {
+		if pokerCards[c.Rank] == 1 {
 			pokerTypes["pairs"]++
 		}
 		pokerColors[c.Suit]++
-		if(pokerColors[c.Suit] == 5) {
+		if pokerColors[c.Suit] == 5 {
 			pokerTypes["flush"]++
 		}
 		pokerCards[c.Rank]++
-		if(pokerCards["10"] > 0 && pokerCards["J"] > 0 && pokerCards["Q"] > 0 && pokerCards["K"] > 0 && pokerCards["A"] > 0 && pokerColors[c.Suit] == 5) {
+		if pokerCards["10"] > 0 && pokerCards["J"] > 0 && pokerCards["Q"] > 0 && pokerCards["K"] > 0 && pokerCards["A"] > 0 && pokerColors[c.Suit] == 5 {
 			return 10, 1
 		}
-		if(pokerCards[c.Rank] == 4) {
+		if pokerCards[c.Rank] == 4 {
 			return 8, 1
 		}
-		if(cardPosition < c.Position()) {
+		if cardPosition < c.Position() {
 			cardPosition = c.Position()
 		}
 	}
-	if(pokerTypes["pairs"] == 1) {
+	if pokerTypes["pairs"] == 1 {
 		level = 2
 	}
-	if(pokerTypes["pairs"] == 2 || pokerTypes["pairs"] == 3) {
+	if pokerTypes["pairs"] == 2 || pokerTypes["pairs"] == 3 {
 		level = 3
 	}
-	if(pokerTypes["drill"] == 1) {
+	if pokerTypes["drill"] == 1 {
 		level = 4
 	}
-	if(pokerTypes["flush"] != 0) {
+	if pokerTypes["flush"] != 0 {
 		level = 6
 	}
 	straight := findStraight(cards)
