@@ -50,3 +50,11 @@ func (g *Game) MinimumRaiseValue() int {
 func (g *Game) AllInValue() int {
 	return g.Player().Stack
 }
+
+func (g *Game) EffectiveCards() []Card {
+	cards := []Card{}
+	cards = append(cards, g.Player().HoleCards...)
+	cards = append(cards, g.CommunityCards...)
+
+	return cards
+}

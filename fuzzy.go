@@ -17,6 +17,7 @@ type FuzzyDecider struct {
 
 var stackScale = FloatScale{}.Domain(0.0, 3000.0).Range(1.0, 0.0)
 var raiseScale = FloatScale{}.Domain(0.0, 1000.0).Range(0.0, 1.0)
+var handScale = FloatScale{}.Domain(0.0, 7.0).Range(0.0, 1.0)
 
 func EaseCubicOut(v float64) float64 {
 	return v * v * v
@@ -36,6 +37,12 @@ func Curve(c float64) func(float64) float64 {
 	}
 }
 
+func ValueOfCards(cards []Card) float64 {
+	handLevel, cardLevel := GetPokerLevel(cards)
+
+	return (float64)(handLevel) + (float64)(cardLevel)/15.0
+}
+
 func NewFuzzyDecider(config *Config, game *Game) *FuzzyDecider {
 	decider := &FuzzyDecider{config: config, game: game}
 	decider.stackCurve = Curve(config.Curves.StackCurve)
@@ -47,9 +54,11 @@ func NewFuzzyDecider(config *Config, game *Game) *FuzzyDecider {
 func (d *FuzzyDecider) Next() Decision {
 	stackValue := stackScale.Scale((float64)(d.game.Player().Stack))
 	raiseValue := raiseScale.Scale((float64)(d.game.MinimumRaise))
-	confidence := stackValue * raiseValue
-	log.Printf("stackValue=%f, raiseValue=%f -> confidence=%f\n",
-		stackValue, raiseValue, confidence)
+	handValue := ValueOfCards(d.game.EffectiveCards()) - ValueOfCards(d.game.CommunityCards)
+	confidence := stackValue * raiseValue * handValue
+
+	log.Printf("stackValue=%f, raiseValue=%f, handValue=%f -> confidence=%f\n",
+		stackValue, raiseValue, handValue, confidence)
 
 	switch {
 	case confidence > d.config.ConfidenceLevels.AllIn:
