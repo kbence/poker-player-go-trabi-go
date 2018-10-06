@@ -46,6 +46,11 @@ func (c Card) Position() int {
 	}
 }
 
+func(c Card) gap(other Card)  int {
+	p1, p2:= c.Position(), other.Position()
+	return int(math.Abs(float64(p1-p2)))
+}
+
 type Hole []Card
 
 func (h Hole) Value() float64 {
@@ -53,5 +58,16 @@ func (h Hole) Value() float64 {
 	value := math.Max(a.Value(), b.Value())
 	if(a.Value()== b.Value()) {value*=2}
 	if(a.Suit==b.Suit){value+=2}
+	g:=a.gap(b)
+
+	switch g {
+	case 0:break
+	case 1:value -= 1
+	case 2:value-=2
+	case 3:value-=4
+	default:
+		value-=5
+	}
+
 	return value
 }
