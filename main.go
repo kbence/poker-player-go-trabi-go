@@ -24,7 +24,7 @@ func (p *PokerPlayer) BetRequest(state *Game) int {
 	player := state.Players[state.InAction]
 	value := (Hole)(player.HoleCards).Value()
 
-	if value > 5.0 {
+	if value > 9.0 {
 		return state.CurrentBuyIn - player.Bet
 	}
 
