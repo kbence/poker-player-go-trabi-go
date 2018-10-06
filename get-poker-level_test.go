@@ -61,6 +61,32 @@ func TestDrill(t *testing.T) {
 	assert.Equal(t, 1, cardLevel, "drill card level")
 }
 
+func TestStraight(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "2", Suit: "clubs"},
+		Card{Rank: "3", Suit: "spades"},
+		Card{Rank: "4", Suit: "hearts"},
+		Card{Rank: "5", Suit: "spades"},
+		Card{Rank: "6", Suit: "hearts"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 5, level, "straight")
+	assert.Equal(t, 2, cardLevel, "straight card level")
+}
+
+func TestStraightWithAce(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "A", Suit: "hearts"},
+		Card{Rank: "2", Suit: "clubs"},
+		Card{Rank: "3", Suit: "spades"},
+		Card{Rank: "4", Suit: "hearts"},
+		Card{Rank: "5", Suit: "spades"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 5, level, "straight")
+	assert.Equal(t, 1, cardLevel, "straight card level")
+}
+
 func TestFlush(t *testing.T) {
 	cards := []Card{
 		Card{Rank: "2", Suit: "clubs"},
