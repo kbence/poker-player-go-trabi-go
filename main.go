@@ -19,7 +19,7 @@ func NewPokerPlayer() *PokerPlayer {
 func (p *PokerPlayer) BetRequest(state *Game) int {
 	value := (Hole)(state.Player().HoleCards).Value()
 
-	NewFuzzyDecider().Next(state)
+	NewFuzzyDecider(Cfg, state).Next()
 
 	// AA or higher, omg all in
 	if value >= 20.0 {
