@@ -2,7 +2,7 @@ package main
 
 // VERSION provides a short description of the player's current version
 // The string specified here will be shown for live.leanpoker.org games
-const VERSION = "Default Go folding player"
+const VERSION = "Recognizable go application"
 
 // PokerPlayer is a struct to organize player methods
 type PokerPlayer struct{}
