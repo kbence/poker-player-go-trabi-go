@@ -19,9 +19,14 @@ func NewPokerPlayer() *PokerPlayer {
 func (p *PokerPlayer) BetRequest(state *Game) int {
 	value := (Hole)(state.Player().HoleCards).Value()
 
-	NewFuzzyDecider().Next(state)
+	NewFuzzyDecider(Cfg, state).Next()
 
-	// KK AA or higher, be brave
+	// AA or higher, omg all in
+	if value >= 20.0 {
+		return state.MinimumRaiseValue() * 300
+	}
+
+	// KK be brave
 	if value >= 16.0 {
 		return state.MinimumRaiseValue() * 2
 	}

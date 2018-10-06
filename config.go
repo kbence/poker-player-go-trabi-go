@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -11,6 +12,8 @@ import (
 const URL = "http://geci.herokuapp.com/gotrabigokiakiraly/trabi_v1.json"
 
 type Config struct {
+	StackCurve float64
+	RaiseCurve float64
 }
 
 func NewConfig() *Config {
@@ -21,7 +24,7 @@ func NewConfig() *Config {
 	return config
 }
 
-func (d *Config) Update() {
+func (cfg *Config) Update() {
 	log.Printf("Start scraping URL \"%s\"\n", URL)
 
 	for {
@@ -38,16 +41,21 @@ func (d *Config) Update() {
 				break
 			}
 
-			err = json.Unmarshal(data, d)
+			err = json.Unmarshal(data, cfg)
 			if err != nil {
 				log.Printf("Error parsing config: %s\n", err)
 				break
 			}
 
 			log.Println("Downloaded config")
+			log.Printf("New configuration: %s\n", cfg.String())
 			break
 		}
 
 		time.Sleep(5 * time.Second)
 	}
+}
+
+func (cfg *Config) String() string {
+	return fmt.Sprintf("StackCurve=%f, RaiseCurve=%f", cfg.StackCurve, cfg.RaiseCurve)
 }
