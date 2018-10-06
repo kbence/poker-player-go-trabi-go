@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"math"
 	"strconv"
 )
@@ -71,5 +72,7 @@ func (h Hole) Value() float64 {
 
 	if (a.Position()<12 && b.Position()<12 && g<=1) {value+=1}
 
-	return math.Round(value)
+	rounded := math.Round(value)
+	log.Printf("%s %s %s %s => %v", a.Rank ,a.Suit, b.Rank, a.Suit, rounded)
+	return rounded
 }
