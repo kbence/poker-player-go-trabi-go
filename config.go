@@ -1,4 +1,4 @@
-package fuzzy
+package main
 
 import (
 	"encoding/json"
