@@ -1,7 +1,5 @@
 package main
 
-import _ "github.com/kbence/poker-player-go-trabi-go/fuzzy"
-
 // VERSION provides a short description of the player's current version
 // The string specified here will be shown for live.leanpoker.org games
 const VERSION = "Deciding go player"
@@ -20,6 +18,8 @@ func NewPokerPlayer() *PokerPlayer {
 // can be found here: http://leanpoker.org/player-api
 func (p *PokerPlayer) BetRequest(state *Game) int {
 	value := (Hole)(state.Player().HoleCards).Value()
+
+	NewFuzzyDecider().Next(state)
 
 	if value >= 12.0 {
 		return state.MinimumRaiseValue()
