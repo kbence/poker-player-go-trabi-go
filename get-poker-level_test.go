@@ -138,3 +138,64 @@ func TestRoyalFlush(t *testing.T) {
 	assert.Equal(t, 10, level, "royal flush")
 	assert.Equal(t, 10, cardLevel, "royal flush card level")
 }
+
+
+func TestRoyalFlushLargeSevenCard(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "10", Suit: "clubs"},
+		Card{Rank: "J", Suit: "clubs"},
+		Card{Rank: "Q", Suit: "clubs"},
+		Card{Rank: "K", Suit: "clubs"},
+		Card{Rank: "A", Suit: "diamonds"},
+		Card{Rank: "A", Suit: "hearts"},
+		Card{Rank: "A", Suit: "clubs"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 10, level, "royal flush large seven card")
+	assert.Equal(t, 10, cardLevel, "royal flush large seven card level")
+}
+
+func TestRoyalFlushSmallSevenCard(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "A", Suit: "clubs"},
+		Card{Rank: "3", Suit: "clubs"},
+		Card{Rank: "2", Suit: "clubs"},
+		Card{Rank: "4", Suit: "clubs"},
+		Card{Rank: "5", Suit: "diamonds"},
+		Card{Rank: "2", Suit: "hearts"},
+		Card{Rank: "5", Suit: "clubs"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 9, level, "royal flush small seven card")
+	assert.Equal(t, 1, cardLevel, "royal flush small seven card level")
+}
+
+func TestStraightFlushMediumSevenCard(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "J", Suit: "clubs"},
+		Card{Rank: "10", Suit: "clubs"},
+		Card{Rank: "9", Suit: "clubs"},
+		Card{Rank: "8", Suit: "clubs"},
+		Card{Rank: "9", Suit: "diamonds"},
+		Card{Rank: "9", Suit: "hearts"},
+		Card{Rank: "7", Suit: "clubs"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 9, level, "straight flush medium seven card")
+	assert.Equal(t, 7, cardLevel, "straight flush medium seven card level")
+}
+
+func TestStraightLargeSevenCard(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "J", Suit: "diamonds"},
+		Card{Rank: "10", Suit: "clubs"},
+		Card{Rank: "9", Suit: "hearts"},
+		Card{Rank: "8", Suit: "clubs"},
+		Card{Rank: "9", Suit: "diamonds"},
+		Card{Rank: "9", Suit: "hearts"},
+		Card{Rank: "7", Suit: "clubs"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 5, level, "straight large seven card")
+	assert.Equal(t, 7, cardLevel, "straight large seven card level")
+}
