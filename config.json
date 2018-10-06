@@ -1,4 +1,11 @@
 {
-    "StackCurve": 0.0,
-    "RaiseCurve": 0.0
+    "Curves": {
+        "StackCurve": 0.0,
+        "RaiseCurve": 0.0
+    },
+    "ConfidenceLevels": {
+        "AllIn": 0.9,
+        "Raise": 0.8,
+        "Call": 0.5
+    }
 }
