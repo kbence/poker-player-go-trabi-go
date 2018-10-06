@@ -34,5 +34,7 @@ type Hole []Card
 
 func (h Hole) Value() float64 {
 	a, b := h[0], h[1]
-	return math.Max(a.Value(), b.Value())
+	value := math.Max(a.Value(), b.Value())
+	if(a.Value()== b.Value()) {value*=2}
+	return value
 }
