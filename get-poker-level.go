@@ -19,6 +19,9 @@ func GetPokerLevel(cards []Card) (int, int) {
 			pokerTypes["flush"]++
 		}
 		pokerCards[c.Rank]++
+		if(pokerCards["10"] > 0 && pokerCards["J"] > 0 && pokerCards["Q"] > 0 && pokerCards["K"] > 0 && pokerCards["A"] > 0 && pokerColors[c.Suit] == 5) {
+			return 10, 1
+		}
 		if(pokerCards[c.Rank] == 4) {
 			return 8, 1
 		}

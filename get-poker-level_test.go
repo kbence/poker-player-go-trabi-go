@@ -86,3 +86,16 @@ func TestPoker(t *testing.T) {
 	assert.Equal(t, 8, level, "poker")
 	assert.Equal(t, 1, cardLevel, "poker card level")
 }
+
+func TestRoyalFlush(t *testing.T) {
+	cards := []Card{
+		Card{Rank: "10", Suit: "clubs"},
+		Card{Rank: "J", Suit: "clubs"},
+		Card{Rank: "Q", Suit: "clubs"},
+		Card{Rank: "K", Suit: "clubs"},
+		Card{Rank: "A", Suit: "clubs"},
+	}
+	level, cardLevel := GetPokerLevel(cards)
+	assert.Equal(t, 10, level, "royal flush")
+	assert.Equal(t, 1, cardLevel, "royal flush card level")
+}
