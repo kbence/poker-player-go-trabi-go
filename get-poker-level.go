@@ -1,8 +1,8 @@
 package main
 
-func findStraight(cards []Card) int {
-	for i := 1; i < 10; i++ {
-		if findByPos(cards, i) && findByPos(cards, i+1) && findByPos(cards, i+2) && findByPos(cards, i+3) && findByPos(cards, i+4) {
+func findStraight(cards []Card, suitCheck func(Card) bool) int {
+	for i := 1; i <= 10; i++ {
+		if findByPos(cards, i, suitCheck) && findByPos(cards, i+1, suitCheck) && findByPos(cards, i+2, suitCheck) && findByPos(cards, i+3, suitCheck) && findByPos(cards, i+4, suitCheck) {
 			return i
 		}
 	}
@@ -10,9 +10,9 @@ func findStraight(cards []Card) int {
 	return -1
 }
 
-func findByPos(cards []Card, position int) bool {
+func findByPos(cards []Card, position int, suitCheck func(Card) bool) bool {
 	for _, card := range cards {
-		if card.Position() == position || (card.Position() == 14 && position == 1) {
+		if suitCheck(card) && (card.Position() == position || (card.Position() == 14 && position == 1)) {
 			return true
 		}
 	}
@@ -21,6 +21,17 @@ func findByPos(cards []Card, position int) bool {
 }
 
 func GetPokerLevel(cards []Card) (int, int) {
+	suits := []string{"clubs", "spades", "hearts", "diamonds"}
+	for _, suit := range suits {
+		straight := findStraight(cards, func(card Card) bool { return card.Suit == suit })
+		if straight == 10 {
+			return 10, straight
+		}
+		if straight > 0 {
+			return 9, straight
+		}
+	}
+
 	pokerTypes := make(map[string]int)
 	pokerCards := make(map[string]int)
 	pokerColors := make(map[string]int)
@@ -38,9 +49,6 @@ func GetPokerLevel(cards []Card) (int, int) {
 			pokerTypes["flush"]++
 		}
 		pokerCards[c.Rank]++
-		if pokerCards["10"] > 0 && pokerCards["J"] > 0 && pokerCards["Q"] > 0 && pokerCards["K"] > 0 && pokerCards["A"] > 0 && pokerColors[c.Suit] == 5 {
-			return 10, 1
-		}
 		if pokerCards[c.Rank] == 4 {
 			return 8, 1
 		}
@@ -60,7 +68,7 @@ func GetPokerLevel(cards []Card) (int, int) {
 	if pokerTypes["flush"] != 0 {
 		level = 6
 	}
-	straight := findStraight(cards)
+	straight := findStraight(cards, func(Card) bool { return true })
 	if straight > 0 {
 		return 5, straight
 	}
