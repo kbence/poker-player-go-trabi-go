@@ -23,7 +23,15 @@ func TestCouple(t *testing.T) {
 	}
 	level, cardLevel := GetPokerLevel(cards)
 	assert.Equal(t, 2, level, "couple")
-	assert.Equal(t, 1, cardLevel, "couple card level")
+	assert.Equal(t, 2, cardLevel, "couple card level")
+
+	cards = []Card{
+		Card{Rank: "K", Suit: "clubs"},
+		Card{Rank: "K", Suit: "spades"},
+	}
+	level, cardLevel = GetPokerLevel(cards)
+	assert.Equal(t, 2, level, "couple")
+	assert.Equal(t, 13, cardLevel, "couple card level")
 }
 
 func TestTwoPairs(t *testing.T) {

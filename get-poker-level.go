@@ -57,7 +57,7 @@ func GetPokerLevel(cards []Card) (int, int) {
 		}
 	}
 	if pokerTypes["pairs"] == 1 {
-		level = 2
+		return 2, cardPosition
 	}
 	if pokerTypes["pairs"] == 2 || pokerTypes["pairs"] == 3 {
 		level = 3
