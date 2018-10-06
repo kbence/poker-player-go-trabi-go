@@ -1,5 +1,23 @@
 package main
 
+func findStraight(cards []Card) int {
+	for i := 1; i < 10; i++ {
+		if findByPos(cards, i) && findByPos(cards, i+1) && findByPos(cards, i+2) && findByPos(cards, i+3) && findByPos(cards, i+4) {
+			return i;
+		}
+	}
+
+	return -1;
+}
+
+func findByPos(cards []Card, position int) bool {
+	for _, card := range cards {
+		if(card.Position()==position || (card.Position()==14 && position==1)) return true
+	}
+
+	return false
+}
+
 
 func GetPokerLevel(cards []Card) (int, int) {
 	pokerTypes := make(map[string]int)
@@ -44,7 +62,10 @@ func GetPokerLevel(cards []Card) (int, int) {
 	if(level == 1) {
 		return 1, cardPosition
 	}
-
+	straight := findStraight(cards)
+	if straight > 0 {
+		return 5, straight
+	}
 
 	return level, 1
 }
