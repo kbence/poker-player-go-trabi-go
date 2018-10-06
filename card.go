@@ -1,6 +1,9 @@
 package main
 
-import "strconv"
+import (
+	"math"
+	"strconv"
+)
 
 // Card describes the properties of a card in the game state JSON
 type Card struct {
@@ -25,4 +28,11 @@ func (c Card) Value() float64 {
 		x, _ := strconv.ParseFloat(c.Rank, 64)
 		return x / 2.0
 	}
+}
+
+type Hole []Card
+
+func (h Hole) Value() float64 {
+	a, b := h[0], h[1]
+	return math.Max(a.Value(), b.Value())
 }
