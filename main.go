@@ -2,7 +2,7 @@ package main
 
 // VERSION provides a short description of the player's current version
 // The string specified here will be shown for live.leanpoker.org games
-const VERSION = "Recognizable go application"
+const VERSION = "Deciding go player"
 
 // PokerPlayer is a struct to organize player methods
 type PokerPlayer struct{}
@@ -17,7 +17,27 @@ func NewPokerPlayer() *PokerPlayer {
 // call, raise or do an all-in; more information about this behaviour
 // can be found here: http://leanpoker.org/player-api
 func (p *PokerPlayer) BetRequest(state *Game) int {
-	return 200
+	value := (Hole)(state.Player().HoleCards).Value()
+
+	NewFuzzyDecider().Next(state)
+
+	// KK AA or higher, be brave
+	if value >= 16.0 {
+		return state.MinimumRaiseValue() * 2
+	}
+
+	// confident bet
+	if value >= 12.0 {
+		return state.MinimumRaiseValue()
+	}
+
+	// there is a chance
+	if value >= 8.0 {
+		return state.CallValue()
+	}
+
+	// no way
+	return 0
 }
 
 // Showdown is called at the end of every round making it possible to

@@ -34,3 +34,19 @@ type Game struct {
 	// Finally the array of community cards.
 	CommunityCards []Card `json:"community_cards"`
 }
+
+func (g *Game) Player() Player {
+	return g.Players[g.InAction]
+}
+
+func (g *Game) CallValue() int {
+	return g.CurrentBuyIn - g.Player().Bet
+}
+
+func (g *Game) MinimumRaiseValue() int {
+	return g.CallValue() + g.MinimumRaise
+}
+
+func (g *Game) AllInValue() int {
+	return g.Player().Stack
+}
