@@ -1,15 +1,10 @@
 package main
 
-type DecisionType uint
+type Decision uint
 
 const (
-	FOLD DecisionType = iota
+	FOLD Decision = iota
 	CALL
 	RAISE
 	ALL_IN
 )
-
-type Decision struct {
-	Decision DecisionType
-	Amount   int
-}

@@ -12,8 +12,15 @@ import (
 const URL = "http://geci.herokuapp.com/gotrabigokiakiraly/trabi_v1.json"
 
 type Config struct {
-	StackCurve float64
-	RaiseCurve float64
+	Curves struct {
+		StackCurve float64
+		RaiseCurve float64
+	}
+	ConfidenceLevels struct {
+		AllIn float64
+		Raise float64
+		Call  float64
+	}
 }
 
 func NewConfig() *Config {
@@ -57,5 +64,11 @@ func (cfg *Config) Update() {
 }
 
 func (cfg *Config) String() string {
-	return fmt.Sprintf("StackCurve=%f, RaiseCurve=%f", cfg.StackCurve, cfg.RaiseCurve)
+	return fmt.Sprintf("Curves={StackCurve=%f, RaiseCurve=%f}, "+
+		"ConfidenceLevels={AllIn=%f, Raise=%f, Call=%f}",
+		cfg.Curves.StackCurve,
+		cfg.Curves.RaiseCurve,
+		cfg.ConfidenceLevels.AllIn,
+		cfg.ConfidenceLevels.Raise,
+		cfg.ConfidenceLevels.Call)
 }
