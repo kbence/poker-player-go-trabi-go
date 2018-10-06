@@ -37,7 +37,7 @@ func (p *PokerPlayer) BetRequest(state *Game) int {
 	}
 
 	// there is a chance
-	if value >= 8.0 {
+	if value >= 9.0 && state.CallValue() <= (state.Player().Stack/10) {
 		return state.CallValue()
 	}
 
