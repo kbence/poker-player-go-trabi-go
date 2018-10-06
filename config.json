@@ -1,14 +1,14 @@
 {
-    "Version": "Szuper verzio",
+    "Version": "DLCFG v0.1 - 423/753",
     "NewLogic": true,
     "Curves": {
-        "StackCurve": 0.0,
-        "RaiseCurve": 0.0,
-        "HandCurve": 0.0
+        "StackCurve": 0.4,
+        "RaiseCurve": 0.2,
+        "HandCurve": 0.3
     },
     "ConfidenceLevels": {
-        "AllIn": 0.9,
-        "Raise": 0.8,
-        "Call": 0.5
+        "AllIn": 0.7,
+        "Raise": 0.5,
+        "Call": 0.3
     }
 }
