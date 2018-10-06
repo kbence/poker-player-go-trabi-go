@@ -14,7 +14,7 @@ func NewLogger(id string) *Logger {
 }
 
 func (l *Logger) Format(level, format string) string {
-	return fmt.Sprintf("[%s] %s %s", level, format, l.Id)
+	return fmt.Sprintf("%s [%s] %s", l.Id, level, format)
 }
 
 func (l *Logger) Debugf(format string, args ...interface{}) {
