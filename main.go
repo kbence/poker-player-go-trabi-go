@@ -17,15 +17,14 @@ func NewPokerPlayer() *PokerPlayer {
 // call, raise or do an all-in; more information about this behaviour
 // can be found here: http://leanpoker.org/player-api
 func (p *PokerPlayer) BetRequest(state *Game) int {
-	if len(state.CommunityCards) > 0 {
-		return 0
+	value := (Hole)(state.Player().HoleCards).Value()
+
+	if value >= 12.0 {
+		return state.MinimumRaiseValue()
 	}
 
-	player := state.Players[state.InAction]
-	value := (Hole)(player.HoleCards).Value()
-
-	if value > 9.0 {
-		return state.CurrentBuyIn - player.Bet
+	if value >= 9.0 {
+		return state.CallValue()
 	}
 
 	return 0
